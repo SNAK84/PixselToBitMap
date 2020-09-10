@@ -9,6 +9,7 @@ namespace PixselToBitMap
     static class Program
     {
         public static Form1 form1;
+        public static FontBitMap fontBitMap;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -17,6 +18,8 @@ namespace PixselToBitMap
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+
             form1 = new Form1();
             Application.Run(form1);
         }

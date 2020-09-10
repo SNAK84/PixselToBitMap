@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.HeightBox = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,11 +57,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.Offset = new System.Windows.Forms.NumericUpDown();
+            this.button7 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.OffsetX = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
@@ -72,10 +79,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.FirstSymbol)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Offset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OffsetX)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.HeightBox);
             this.groupBox1.Controls.Add(this.label2);
@@ -83,9 +92,19 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(537, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 47);
+            this.groupBox1.Size = new System.Drawing.Size(310, 65);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(10, 44);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(186, 17);
+            this.checkBox1.TabIndex = 17;
+            this.checkBox1.Text = "Не менять при загрузке BitMap";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -131,6 +150,7 @@
             0,
             0,
             0});
+            this.WidthBox.ValueChanged += new System.EventHandler(this.WidthBox_ValueChanged);
             // 
             // label1
             // 
@@ -148,9 +168,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(12, 143);
+            this.panel1.Location = new System.Drawing.Point(12, 181);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(519, 506);
+            this.panel1.Size = new System.Drawing.Size(519, 418);
             this.panel1.TabIndex = 3;
             this.panel1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseWheel);
             // 
@@ -158,16 +178,16 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(537, 143);
+            this.textBox1.Location = new System.Drawing.Point(537, 210);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(310, 506);
+            this.textBox1.Size = new System.Drawing.Size(310, 389);
             this.textBox1.TabIndex = 4;
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(746, 115);
+            this.button2.Location = new System.Drawing.Point(746, 181);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 23);
             this.button2.TabIndex = 6;
@@ -177,10 +197,9 @@
             // 
             // button3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(12, 115);
+            this.button3.Location = new System.Drawing.Point(12, 152);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(102, 23);
+            this.button3.Size = new System.Drawing.Size(60, 23);
             this.button3.TabIndex = 7;
             this.button3.Text = "Стереть";
             this.button3.UseVisualStyleBackColor = true;
@@ -217,7 +236,6 @@
             0,
             0});
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-            this.numericUpDown1.Leave += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // groupBox2
             // 
@@ -289,6 +307,11 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button8);
+            this.groupBox3.Controls.Add(this.button10);
+            this.groupBox3.Controls.Add(this.button11);
+            this.groupBox3.Controls.Add(this.OffsetX);
+            this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.numericUpDown2);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.LastSymbol);
@@ -299,14 +322,14 @@
             this.groupBox3.Controls.Add(this.textBox2);
             this.groupBox3.Location = new System.Drawing.Point(12, 65);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(519, 47);
+            this.groupBox3.Size = new System.Drawing.Size(519, 80);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Настройка BitMap";
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(452, 19);
+            this.numericUpDown2.Location = new System.Drawing.Point(359, 19);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             255,
             0,
@@ -325,7 +348,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(401, 22);
+            this.label9.Location = new System.Drawing.Point(297, 23);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 13);
             this.label9.TabIndex = 17;
@@ -333,7 +356,7 @@
             // 
             // LastSymbol
             // 
-            this.LastSymbol.Location = new System.Drawing.Point(352, 19);
+            this.LastSymbol.Location = new System.Drawing.Point(251, 45);
             this.LastSymbol.Maximum = new decimal(new int[] {
             255,
             0,
@@ -356,7 +379,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(280, 22);
+            this.label7.Location = new System.Drawing.Point(179, 48);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 13);
             this.label7.TabIndex = 15;
@@ -364,7 +387,7 @@
             // 
             // FirstSymbol
             // 
-            this.FirstSymbol.Location = new System.Drawing.Point(234, 19);
+            this.FirstSymbol.Location = new System.Drawing.Point(251, 19);
             this.FirstSymbol.Maximum = new decimal(new int[] {
             255,
             0,
@@ -387,7 +410,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(178, 22);
+            this.label6.Location = new System.Drawing.Point(195, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 11;
@@ -413,20 +436,45 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.checkBox3);
+            this.groupBox4.Controls.Add(this.checkBox2);
             this.groupBox4.Controls.Add(this.Offset);
-            this.groupBox4.Controls.Add(this.button7);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.button6);
-            this.groupBox4.Location = new System.Drawing.Point(537, 65);
+            this.groupBox4.Location = new System.Drawing.Point(537, 82);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(310, 47);
+            this.groupBox4.Size = new System.Drawing.Size(310, 93);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Настройка Символа";
             // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(6, 63);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(188, 17);
+            this.checkBox3.TabIndex = 19;
+            this.checkBox3.Text = "Запись в BitMap при изменении";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(6, 40);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(186, 17);
+            this.checkBox2.TabIndex = 18;
+            this.checkBox2.Text = "Не менять при загрузке BitMap";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // Offset
             // 
-            this.Offset.Location = new System.Drawing.Point(86, 21);
+            this.Offset.Location = new System.Drawing.Point(81, 14);
+            this.Offset.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.Offset.Name = "Offset";
             this.Offset.Size = new System.Drawing.Size(40, 20);
             this.Offset.TabIndex = 6;
@@ -435,11 +483,23 @@
             0,
             0,
             0});
+            this.Offset.ValueChanged += new System.EventHandler(this.Offset_ValueChanged);
+            // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.Location = new System.Drawing.Point(455, 152);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(70, 23);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "Из BitMap";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 23);
+            this.label8.Location = new System.Drawing.Point(7, 16);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 13);
             this.label8.TabIndex = 10;
@@ -448,7 +508,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(155, 17);
+            this.button6.Location = new System.Drawing.Point(371, 152);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(70, 23);
             this.button6.TabIndex = 13;
@@ -456,21 +516,9 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button7
-            // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(231, 17);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(70, 23);
-            this.button7.TabIndex = 14;
-            this.button7.Text = "Из BitMap";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // button8
             // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(120, 115);
+            this.button8.Location = new System.Drawing.Point(405, 16);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(108, 23);
             this.button8.TabIndex = 15;
@@ -478,21 +526,71 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(405, 45);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(108, 23);
+            this.button10.TabIndex = 16;
+            this.button10.Text = "Загрузить BitMap";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(72, 45);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(101, 23);
+            this.button11.TabIndex = 17;
+            this.button11.Text = "Дублировать";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // OffsetX
+            // 
+            this.OffsetX.Location = new System.Drawing.Point(359, 45);
+            this.OffsetX.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.OffsetX.Name = "OffsetX";
+            this.OffsetX.Size = new System.Drawing.Size(40, 20);
+            this.OffsetX.TabIndex = 20;
+            this.OffsetX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.OffsetX.ValueChanged += new System.EventHandler(this.OffsetX_ValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(297, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(56, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Интервал";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 661);
-            this.Controls.Add(this.button8);
+            this.ClientSize = new System.Drawing.Size(859, 611);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(875, 250);
             this.Name = "Form1";
+            this.ShowIcon = false;
             this.Text = "PixselToBitMap";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -510,6 +608,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Offset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OffsetX)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -550,6 +649,13 @@
         public System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button button11;
+        public System.Windows.Forms.NumericUpDown OffsetX;
+        private System.Windows.Forms.Label label10;
     }
 }
 

@@ -12,6 +12,7 @@ namespace PixselToBitMap
         int LastSymbol;
         public string FontName;
         public int Advance = 9;
+        public int Offset = 1;
 
         private Dictionary<int, SymbolBitMap> Symbols = new Dictionary<int, SymbolBitMap>(255);
 
@@ -66,7 +67,7 @@ namespace PixselToBitMap
                     {
                         Symbols[s].CursorBitMap = BitCursor;
 
-                        Bitmaps += ((BitCursor > 0) ? ",\n" : "");
+                        if(Symbols[s].BitMap.Length>0) Bitmaps += ((BitCursor > 0) ? ",\n" : "");
                         for(int i=0;i< Symbols[s].BitMap.Length;i++)
                         {
                             if (i > 0) Bitmaps += ", ";
@@ -81,7 +82,7 @@ namespace PixselToBitMap
                         "{ " + this[s].CursorBitMap +
                         ", " + this[s].Width +
                         ", " + this[s].Height +
-                        ", " + (this[s].Width + 1) +
+                        ", " + (this[s].Width + Offset) +
                         ", 0, " + this[s].Offset * -1 +
                         "}"+ ((s == LastSymbol) ? "" : ",") + 
                         "\t// 0x" + s.ToString("X") + " '"+ Program.form1.FontChars[s] + "'\n";
@@ -104,13 +105,35 @@ namespace PixselToBitMap
                     bool doub = true;
                     for (int i = 0; i < Symbols[s].BitMap.Length; i++)
                     {
-                        if (Symbols[s].BitMap[i] != Symbols[Symbol].BitMap[i])
+                        if (Symbols[s].BitMap.Length != Symbols[Symbol].BitMap.Length)
+                        {
                             doub = false;
+                        }
+                        else
+                        {
+                            if (Symbols[s].BitMap[i] != Symbols[Symbol].BitMap[i])
+                                doub = false;
+                        }
                     }
                     if(doub) return s;
                 }
             }
             return -1;
+        }
+
+        public int GetMaxWidth()
+        {
+            int MaxWidth = 0;
+            foreach(var sym in Symbols)
+                if (sym.Value.Width > MaxWidth) MaxWidth = sym.Value.Width;
+            return MaxWidth;
+        }
+        public int GetMaxHeight()
+        {
+            int MaxHeight = 0;
+            foreach (var sym in Symbols)
+                if (sym.Value.Height > MaxHeight) MaxHeight = sym.Value.Height;
+            return MaxHeight;
         }
     }
 }

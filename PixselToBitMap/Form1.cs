@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,14 +16,14 @@ namespace PixselToBitMap
     {
         Label[,] labels = new Label[64, 64];
         int BitMapSize = 15;
-        public int Width
+        public new int Width
         {
             get { return _Width; }
             set {
                 WidthBox.Value = value;
               _Width = value; }
         }
-        public int Height
+        public new int Height
         {
             get { return _Height; }
             set
@@ -33,278 +34,22 @@ namespace PixselToBitMap
         int _Width = 8;
         int _Height = 8;
 
-        FontBitMap fontBitMap = new FontBitMap();
+        public string FontChars = "¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿ !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~¿ЂЃ‚ѓ„…†‡€‰Љ‹ЊЌЋЏђ‘’“”•–— ™љ›њќћџ ЎўЈ¤Ґ¦§Ё©Є«¬ ®Ї°±Ііґµ¶·ё№є»јЅѕїАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя";
 
-        public char[] FontChars = new char[256];
-
+        bool NotInsertToBitMap = false;
 
 
         public Form1()
         {
             InitializeComponent();
             CreateBitMap();
-
-            FontChars[0] = '¿';
-            FontChars[1] = '¿';
-            FontChars[2] = '¿';
-            FontChars[3] = '¿';
-            FontChars[4] = '¿';
-            FontChars[5] = '¿';
-            FontChars[6] = '¿';
-            FontChars[7] = '¿';
-            FontChars[8] = '¿';
-            FontChars[9] = '¿';
-            FontChars[10] = '¿';
-            FontChars[11] = '¿';
-            FontChars[12] = '¿';
-            FontChars[13] = '¿';
-            FontChars[14] = '¿';
-            FontChars[15] = '¿';
-            FontChars[16] = '¿';
-            FontChars[17] = '¿';
-            FontChars[18] = '¿';
-            FontChars[19] = '¿';
-            FontChars[20] = '¿';
-            FontChars[21] = '¿';
-            FontChars[22] = '¿';
-            FontChars[23] = '¿';
-            FontChars[24] = '¿';
-            FontChars[25] = '¿';
-            FontChars[26] = '¿';
-            FontChars[27] = '¿';
-            FontChars[28] = '¿';
-            FontChars[29] = '¿';
-            FontChars[30] = '¿';
-            FontChars[31] = '¿';
-            FontChars[32] = ' ';
-            FontChars[33] = '!';
-            FontChars[34] = '"';
-            FontChars[35] = '#';
-            FontChars[36] = '$';
-            FontChars[37] = '%';
-            FontChars[38] = '&';
-            FontChars[39] = '¿';
-            FontChars[40] = '(';
-            FontChars[41] = ')';
-            FontChars[42] = '*';
-            FontChars[43] = '+';
-            FontChars[44] = ',';
-            FontChars[45] = '-';
-            FontChars[46] = '.';
-            FontChars[47] = '/';
-            FontChars[48] = '0';
-            FontChars[49] = '1';
-            FontChars[50] = '2';
-            FontChars[51] = '3';
-            FontChars[52] = '4';
-            FontChars[53] = '5';
-            FontChars[54] = '6';
-            FontChars[55] = '7';
-            FontChars[56] = '8';
-            FontChars[57] = '9';
-            FontChars[58] = ':';
-            FontChars[59] = ';';
-            FontChars[60] = '<';
-            FontChars[61] = '=';
-            FontChars[62] = '>';
-            FontChars[63] = '?';
-            FontChars[64] = '@';
-            FontChars[65] = 'A';
-            FontChars[66] = 'B';
-            FontChars[67] = 'C';
-            FontChars[68] = 'D';
-            FontChars[69] = 'E';
-            FontChars[70] = 'F';
-            FontChars[71] = 'G';
-            FontChars[72] = 'H';
-            FontChars[73] = 'I';
-            FontChars[74] = 'J';
-            FontChars[75] = 'K';
-            FontChars[76] = 'L';
-            FontChars[77] = 'M';
-            FontChars[78] = 'N';
-            FontChars[79] = 'O';
-            FontChars[80] = 'P';
-            FontChars[81] = 'Q';
-            FontChars[82] = 'R';
-            FontChars[83] = 'S';
-            FontChars[84] = 'T';
-            FontChars[85] = 'U';
-            FontChars[86] = 'V';
-            FontChars[87] = 'W';
-            FontChars[88] = 'X';
-            FontChars[89] = 'Y';
-            FontChars[90] = 'Z';
-            FontChars[91] = '[';
-            FontChars[92] = '\\';
-            FontChars[93] = ']';
-            FontChars[94] = '^';
-            FontChars[95] = '_';
-            FontChars[96] = '`';
-            FontChars[97] = '{';
-            FontChars[98] = '|';
-            FontChars[99] = '}';
-            FontChars[100] = '~';
-            FontChars[101] = 'a';
-            FontChars[102] = 'b';
-            FontChars[103] = 'c';
-            FontChars[104] = 'd';
-            FontChars[105] = 'e';
-            FontChars[106] = 'f';
-            FontChars[107] = 'g';
-            FontChars[108] = 'h';
-            FontChars[109] = 'i';
-            FontChars[110] = 'j';
-            FontChars[111] = 'k';
-            FontChars[112] = 'l';
-            FontChars[113] = 'm';
-            FontChars[114] = 'n';
-            FontChars[115] = 'o';
-            FontChars[116] = 'p';
-            FontChars[117] = 'q';
-            FontChars[118] = 'r';
-            FontChars[119] = 's';
-            FontChars[120] = 't';
-            FontChars[121] = 'u';
-            FontChars[122] = 'v';
-            FontChars[123] = 'w';
-            FontChars[124] = 'x';
-            FontChars[125] = 'y';
-            FontChars[126] = 'z';
-            FontChars[127] = '¿';
-            FontChars[128] = '¿';
-            FontChars[129] = '¿';
-            FontChars[130] = '¿';
-            FontChars[131] = '¿';
-            FontChars[132] = '¿';
-            FontChars[133] = '¿';
-            FontChars[134] = '¿';
-            FontChars[135] = '¿';
-            FontChars[136] = '¿';
-            FontChars[137] = '¿';
-            FontChars[138] = '¿';
-            FontChars[139] = '¿';
-            FontChars[140] = '¿';
-            FontChars[141] = '¿';
-            FontChars[142] = '¿';
-            FontChars[143] = '¿';
-            FontChars[144] = '¿';
-            FontChars[145] = '¿';
-            FontChars[146] = '¿';
-            FontChars[147] = '¿';
-            FontChars[148] = '¿';
-            FontChars[149] = '¿';
-            FontChars[150] = '¿';
-            FontChars[151] = '¿';
-            FontChars[152] = '¿';
-            FontChars[153] = '¿';
-            FontChars[154] = '¿';
-            FontChars[155] = '¿';
-            FontChars[156] = '¿';
-            FontChars[157] = '¿';
-            FontChars[158] = '¿';
-            FontChars[159] = '¿';
-            FontChars[160] = '¿';
-            FontChars[161] = '¿';
-            FontChars[162] = '¿';
-            FontChars[163] = '¿';
-            FontChars[164] = '¿';
-            FontChars[165] = '¿';
-            FontChars[166] = '¿';
-            FontChars[167] = '¿';
-            FontChars[168] = 'Ё';
-            FontChars[169] = '¿';
-            FontChars[170] = '¿';
-            FontChars[171] = '¿';
-            FontChars[172] = '¿';
-            FontChars[173] = '¿';
-            FontChars[174] = '¿';
-            FontChars[175] = '¿';
-            FontChars[176] = '°';
-            FontChars[177] = '¿';
-            FontChars[178] = '¿';
-            FontChars[179] = '¿';
-            FontChars[180] = '¿';
-            FontChars[181] = '¿';
-            FontChars[182] = '¿';
-            FontChars[183] = '¿';
-            FontChars[184] = 'ё';
-            FontChars[185] = '№';
-            FontChars[186] = '¿';
-            FontChars[187] = '¿';
-            FontChars[188] = '¿';
-            FontChars[189] = '¿';
-            FontChars[190] = '¿';
-            FontChars[191] = '¿';
-            FontChars[192] = 'А';
-            FontChars[193] = 'Б';
-            FontChars[194] = 'В';
-            FontChars[195] = 'Г';
-            FontChars[196] = 'Д';
-            FontChars[197] = 'Е';
-            FontChars[198] = 'Ж';
-            FontChars[199] = 'З';
-            FontChars[200] = 'И';
-            FontChars[201] = 'Й';
-            FontChars[202] = 'К';
-            FontChars[203] = 'Л';
-            FontChars[204] = 'М';
-            FontChars[205] = 'Н';
-            FontChars[206] = 'О';
-            FontChars[207] = 'П';
-            FontChars[208] = 'Р';
-            FontChars[209] = 'С';
-            FontChars[210] = 'Т';
-            FontChars[211] = 'У';
-            FontChars[212] = 'Ф';
-            FontChars[213] = 'Х';
-            FontChars[214] = 'Ц';
-            FontChars[215] = 'Ч';
-            FontChars[216] = 'Ш';
-            FontChars[217] = 'Щ';
-            FontChars[218] = 'Ъ';
-            FontChars[219] = 'Ы';
-            FontChars[220] = 'Ь';
-            FontChars[221] = 'Э';
-            FontChars[222] = 'Ю';
-            FontChars[223] = 'Я';
-            FontChars[224] = 'а';
-            FontChars[225] = 'б';
-            FontChars[226] = 'в';
-            FontChars[227] = 'г';
-            FontChars[228] = 'д';
-            FontChars[229] = 'е';
-            FontChars[230] = 'ж';
-            FontChars[231] = 'з';
-            FontChars[232] = 'и';
-            FontChars[233] = 'й';
-            FontChars[234] = 'к';
-            FontChars[235] = 'л';
-            FontChars[236] = 'м';
-            FontChars[237] = 'н';
-            FontChars[238] = 'о';
-            FontChars[239] = 'п';
-            FontChars[240] = 'р';
-            FontChars[241] = 'с';
-            FontChars[242] = 'т';
-            FontChars[243] = 'у';
-            FontChars[244] = 'ф';
-            FontChars[245] = 'х';
-            FontChars[246] = 'ц';
-            FontChars[247] = 'ч';
-            FontChars[248] = 'ш';
-            FontChars[249] = 'щ';
-            FontChars[250] = 'ъ';
-            FontChars[251] = 'ы';
-            FontChars[252] = 'ь';
-            FontChars[253] = 'э';
-            FontChars[254] = 'ю';
-            FontChars[255] = 'я';
+            
 
 
         }
         public void CreateBitMap()
         {
+            panel1.Visible = false;
             for (int y = 0; y < 64; y++)
             {
                 for (int x = 0; x < 64; x++)
@@ -315,6 +60,7 @@ namespace PixselToBitMap
                         panel1.Controls.Remove(labels[x, y]);
                 }
             }
+            panel1.Visible = true;
         }
 
         public void CreateMyLabel(int x, int y)
@@ -345,6 +91,11 @@ namespace PixselToBitMap
                 Lab.BackColor = Color.Black;
             else
                 Lab.BackColor = Color.White;
+
+            NotInsertToBitMap = false;
+
+            if (checkBox3.Checked)
+                InsertToBitMap();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -352,14 +103,12 @@ namespace PixselToBitMap
             Width = (int)WidthBox.Value;
             Height = (int)HeightBox.Value;
             CreateBitMap();
+
+            if (checkBox3.Checked)
+                InsertToBitMap();
         }
 
         private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Height_ValueChanged(object sender, EventArgs e)
         {
 
         }
@@ -370,8 +119,7 @@ namespace PixselToBitMap
             int bytes = (int)Math.Ceiling(((decimal)Width * Height / 8));
 
             byte[] BitMap = new byte[bytes];
-
-            int CurRow = 0;
+            
             int x = 0;
             int y = 0;
             for (int b = 0; b < bytes; b++)
@@ -408,13 +156,16 @@ namespace PixselToBitMap
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Program.fontBitMap = new FontBitMap((int)FirstSymbol.Value, (int)LastSymbol.Value);
+
             label4.Text = FontChars[(int)numericUpDown1.Value].ToString();
             SelFont.Text = label4.Font.Name;
-            fontBitMap.FontName = textBox2.Text;
+            Program.fontBitMap.FontName = textBox2.Text;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            NotInsertToBitMap = true;
             label4.Text = FontChars[(int)numericUpDown1.Value].ToString();
             GetBitmaxToLabels((int)numericUpDown1.Value);
         }
@@ -442,9 +193,6 @@ namespace PixselToBitMap
                 {
 
                     Color pixel = bitmap.GetPixel(x, y);
-                    String bb = pixel.ToString();
-                    int zz = pixel.ToArgb();
-                    
                     labels[x, y].BackColor = (pixel.ToArgb() == 0) ? Color.White : Color.Black;
                 }
             }
@@ -467,6 +215,7 @@ namespace PixselToBitMap
 
             if (fontDialog1.ShowDialog() != DialogResult.Cancel)
             {
+
                 SelFont.Text = fontDialog1.Font.Name;
                 label4.Font = new Font(SelFont.Text, label4.Font.Size, label4.Font.Style, label4.Font.Unit);
                 Width = (int)fontDialog1.Font.Size;
@@ -479,6 +228,11 @@ namespace PixselToBitMap
         }
 
         private void button6_Click(object sender, EventArgs e)
+        {
+            InsertToBitMap();
+        }
+
+        public void InsertToBitMap()
         {
             int bytes = (int)Math.Ceiling(((decimal)Width * Height / 8));
 
@@ -502,13 +256,12 @@ namespace PixselToBitMap
                 }
             }
 
-            fontBitMap[(int)numericUpDown1.Value].Width = Width;
-            fontBitMap[(int)numericUpDown1.Value].Height = Height;
-            fontBitMap[(int)numericUpDown1.Value].Size = Width + 1;
-            fontBitMap[(int)numericUpDown1.Value].Offset = (int)Offset.Value;
-            fontBitMap[(int)numericUpDown1.Value].BitMap = BitMap;
+            Program.fontBitMap[(int)numericUpDown1.Value].Width = Width;
+            Program.fontBitMap[(int)numericUpDown1.Value].Height = Height;
+            Program.fontBitMap[(int)numericUpDown1.Value].Size = Width + 1;
+            Program.fontBitMap[(int)numericUpDown1.Value].Offset = (int)Offset.Value;
+            Program.fontBitMap[(int)numericUpDown1.Value].BitMap = BitMap;
         }
-
         private void button7_Click(object sender, EventArgs e)
         {
             GetBitmaxToLabels((int)numericUpDown1.Value);
@@ -517,8 +270,8 @@ namespace PixselToBitMap
         private void GetBitmaxToLabels(int Symbol)
         {
 
-            byte[] BitMap = fontBitMap[Symbol].BitMap;
-            
+            byte[] BitMap = Program.fontBitMap[Symbol].BitMap;
+
             if (BitMap == null)
             {
                 ClearLabels();
@@ -527,21 +280,29 @@ namespace PixselToBitMap
             int x = 0;
             int y = 0;
 
-            Width = fontBitMap[Symbol].Width;
-            Height = fontBitMap[Symbol].Height;
+            if (!checkBox1.Checked)
+            {
+                Width = Program.fontBitMap[Symbol].Width;
+                Height = Program.fontBitMap[Symbol].Height;
+            }
+            if (!checkBox2.Checked)
+            {
+                Offset.Value = Program.fontBitMap[Symbol].Offset;
+            }
             CreateBitMap();
+            ClearLabels();
 
-            for (int b = 0; b < fontBitMap[Symbol].Size; b++)
+            for (int b = 0; b < Program.fontBitMap[Symbol].BitMap.Length; b++)
             {
                 for (byte bt = 0; bt < 8; bt++)
                 {
-                    if (y >= Height) continue;
+                    if (y >= Height|| y >= Program.fontBitMap[Symbol].Height || b>= BitMap.Length) continue;
 
                     if ((BitMap[b] & (byte)(0x80 >> bt)) == (byte)(0x80 >> bt))
                         labels[x, y].BackColor = Color.Black;
                     else labels[x, y].BackColor = Color.White;
                     x++;
-                    if (x >= Width)
+                    if (x >= Width || x >= Program.fontBitMap[Symbol].Width)
                     {
                         x = 0;
                         y++;
@@ -567,23 +328,24 @@ namespace PixselToBitMap
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
+            saveFileDialog.FileName = textBox2.Text;
             saveFileDialog.Filter = "C/C++ Header File (*.h)|*.h|Plain Text File (*.txt)|*.txt|All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.RestoreDirectory = true;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName, fontBitMap.GetTextFile());
+                File.WriteAllText(saveFileDialog.FileName, Program.fontBitMap.GetTextFile());
             }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            fontBitMap.FontName = textBox2.Text;
+            Program.fontBitMap.FontName = textBox2.Text;
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            fontBitMap.Advance = (int)numericUpDown2.Value;
+            Program.fontBitMap.Advance = (int)numericUpDown2.Value;
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -610,6 +372,7 @@ namespace PixselToBitMap
                 g.Flush();
 
                 int bytes = (int)Math.Ceiling(((decimal)Width * Height / 8));
+                Program.fontBitMap[s].BitMap = new byte[bytes];
 
                 byte[] BitMap = new byte[bytes];
 
@@ -632,11 +395,11 @@ namespace PixselToBitMap
                     }
                 }
 
-                fontBitMap[s].Width = Width;
-                fontBitMap[s].Height = Height;
-                fontBitMap[s].Size = Width + 1;
-                fontBitMap[s].Offset = (int)Offset.Value;
-                fontBitMap[s].BitMap = BitMap;
+                Program.fontBitMap[s].Width = Width;
+                Program.fontBitMap[s].Height = Height;
+                Program.fontBitMap[s].Size = Width + 1;
+                Program.fontBitMap[s].Offset = (int)Offset.Value;
+                Program.fontBitMap[s].BitMap = BitMap;
             }
         }
 
@@ -668,6 +431,123 @@ namespace PixselToBitMap
                     labels[x, y].Size = new System.Drawing.Size(BitMapSize, BitMapSize);
                 }
             }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "C/C++ Header File (*.h)|*.h|Plain Text File (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string BitmapText = File.ReadAllText(openFileDialog.FileName);
+                parseBitmapText(BitmapText);
+                GetBitmaxToLabels((int)numericUpDown1.Value);
+            }
+        }
+        private void parseBitmapText(string BitmapText)
+        {
+            #region Удаление Коментариев
+            Regex regex = new Regex(@"//(.+)\n");
+            BitmapText = regex.Replace(BitmapText, "");
+            BitmapText = BitmapText.Replace("\t", "").Replace("\r","");
+            /*
+            if (matches.Count > 0)
+            {
+                foreach (Match match in matches)
+                {
+                    BitmapText = BitmapText.Replace(match.Value, "");
+                }
+            }*/
+            #endregion
+
+                BitmapText = BitmapText.Replace(" ", "");
+                BitmapText = BitmapText.Replace("\n", "");
+                int StartIndex1 = BitmapText.IndexOf("={")+2;
+                int EndIndex1 = BitmapText.IndexOf("};", StartIndex1);
+                int StartIndex2 = BitmapText.IndexOf("={", EndIndex1) + 2;
+                int EndIndex2 = BitmapText.IndexOf("};", StartIndex2);
+                int StartIndex3 = BitmapText.IndexOf("={", EndIndex2) + 2;
+                int EndIndex3 = BitmapText.IndexOf("};", StartIndex3);
+
+                string bt = BitmapText.Substring(StartIndex1, EndIndex1 - StartIndex1).Replace("0x", "").Replace(",", "");
+                string sm = BitmapText.Substring(StartIndex2, EndIndex2 - StartIndex2);
+                string fn = BitmapText.Substring(StartIndex3, EndIndex3 - StartIndex3);
+
+                Dictionary<string, byte> hexindex = new Dictionary<string, byte>();
+                for (int i = 0; i <= 255; i++)
+                    hexindex.Add(i.ToString("X2"), (byte)i);
+                List<byte> hexres = new List<byte>();
+                for (int i = 0; i < bt.Length; i += 2)
+                    hexres.Add(hexindex[bt.Substring(i, 2)]);
+                byte[] BitMaps = hexres.ToArray();
+
+                string[] fns = fn.Split(',');
+                int First = hexindex[fns[2].Replace("0x", "")];
+                int Last = hexindex[fns[3].Replace("0x", "")];
+                int Offset = Convert.ToInt32(fns[4]);
+            numericUpDown2.Value = Offset;
+            textBox2.Text = fns[0].Replace("(uint8_t*)", "").Replace("Bitmaps", "");
+                string[] stringSeparators = new string[] { "},{" };
+                string[] sms = sm.Split(stringSeparators, StringSplitOptions.None);
+
+                for (int i = 0; i< sms.Length; i++)
+                {
+                    sms[i] = sms[i].Replace("{", "").Replace("}", "");
+                    string[] smsp = sms[i].Split(',');
+                    Program.fontBitMap[i + First].CursorBitMap = Convert.ToInt32(smsp[0]);
+                    Program.fontBitMap[i + First].Width = Convert.ToInt32(smsp[1]);
+                    Program.fontBitMap[i + First].Height = Convert.ToInt32(smsp[2]);
+                    Program.fontBitMap[i + First].Size = Convert.ToInt32(smsp[3]);
+                    Program.fontBitMap[i + First].Offset = Convert.ToInt32(smsp[5]) * -1;
+
+                    int CountByte = (int)Math.Ceiling((decimal)Program.fontBitMap[i + First].Width * (decimal)Program.fontBitMap[i + First].Height / 8);
+                    Program.fontBitMap[i + First].BitMap = new byte[CountByte];
+                    Array.Copy(BitMaps, Program.fontBitMap[i + First].CursorBitMap, Program.fontBitMap[i + First].BitMap, 0, CountByte);
+                    
+
+                }
+        }
+
+        private void Offset_ValueChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked && !NotInsertToBitMap)
+                InsertToBitMap();
+        }
+
+        private void WidthBox_ValueChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked && !NotInsertToBitMap)
+                InsertToBitMap();
+        }
+
+        private void Height_ValueChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked && !NotInsertToBitMap)
+                InsertToBitMap();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SymbolList symbolList = new SymbolList();
+            symbolList.ShowDialog();
+        }
+
+        public void CopySymbel(int Sym)
+        {
+            Program.fontBitMap[(int)numericUpDown1.Value].BitMap = Program.fontBitMap[Sym].BitMap;
+            Program.fontBitMap[(int)numericUpDown1.Value].CursorBitMap = Program.fontBitMap[Sym].CursorBitMap;
+            Program.fontBitMap[(int)numericUpDown1.Value].Width = Program.fontBitMap[Sym].Width;
+            Program.fontBitMap[(int)numericUpDown1.Value].Height = Program.fontBitMap[Sym].Height;
+            Program.fontBitMap[(int)numericUpDown1.Value].Offset = Program.fontBitMap[Sym].Offset;
+            Program.fontBitMap[(int)numericUpDown1.Value].Size = Program.fontBitMap[Sym].Size;
+            GetBitmaxToLabels((int)numericUpDown1.Value);
+        }
+
+        private void OffsetX_ValueChanged(object sender, EventArgs e)
+        {
+            Program.fontBitMap.Offset = (int)OffsetX.Value;
         }
     }
 }
