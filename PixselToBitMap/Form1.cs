@@ -9,11 +9,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace PixselToBitMap
 {
     public partial class Form1 : Form
     {
+        public MouseButtons CurrentMouseButtons;
+        public Label CurrentMouseLabel;
         Label[,] labels = new Label[64, 64];
         int BitMapSize = 15;
         public new int Width
@@ -43,9 +46,6 @@ namespace PixselToBitMap
         {
             InitializeComponent();
             CreateBitMap();
-            
-
-
         }
         public void CreateBitMap()
         {
@@ -62,7 +62,7 @@ namespace PixselToBitMap
             }
             panel1.Visible = true;
         }
-
+        public bool MouseOverLabels;
         public void CreateMyLabel(int x, int y)
         {
             if (panel1.Controls.Contains(labels[x, y])) return;
@@ -78,16 +78,60 @@ namespace PixselToBitMap
             labels[x, y].TabIndex = 1;
             labels[x, y].Text = "";
             labels[x, y].Click += new System.EventHandler(this.ChColor);
-            panel1.Controls.Add(labels[x, y]);
+            /*labels[x, y].MouseEnter += new System.EventHandler(this.labels_MouseEnter);*/
+            labels[x, y].MouseLeave += new System.EventHandler(this.OnMouseOverLabels);
+            labels[x, y].MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
 
+            panel1.Controls.Add(labels[x, y]);
         }
 
+        private void OnMouseMove(object sender, EventArgs e)
+        {
+            MouseOverLabels = true;
+            CurrentMouseLabel = (Label)sender;
+            if (CurrentMouseButtons == MouseButtons.Left)
+            {
+                SetColor((Label)sender, true);
+            }
+            if (CurrentMouseButtons == MouseButtons.Right)
+            {
+                SetColor((Label)sender, false);
+            }
+        }
+        private void OnMouseOverLabels(object sender, EventArgs e)
+        {
+            CurrentMouseLabel = (Label)sender;
+            MouseOverLabels = true;
+        }
         private void ChColor(object sender, EventArgs e)
         {
-
-            Label Lab = (Label)sender;
+            if (CurrentMouseButtons == MouseButtons.Left)
+            {
+                SetColor((Label)sender, true);
+            }
+            if (CurrentMouseButtons == MouseButtons.Right)
+            {
+                SetColor((Label)sender, false);
+            }
+            //ChColor((Label)sender);
+        }
+        private void ChColor(Label Lab)
+        {
+            //Label Lab = (Label)sender;
 
             if (Lab.BackColor == Color.White)
+                SetColor(Lab, true);
+                //Lab.BackColor = Color.Black;
+            else
+                SetColor(Lab, false);
+            //Lab.BackColor = Color.White;
+
+            
+        }
+
+        public void SetColor(Label Lab, bool black)
+        {
+            if (black)
                 Lab.BackColor = Color.Black;
             else
                 Lab.BackColor = Color.White;
@@ -96,6 +140,11 @@ namespace PixselToBitMap
 
             if (checkBox3.Checked)
                 InsertToBitMap();
+        }
+        private void labels_MouseEnter(object sender, EventArgs e)
+        {
+            if (CurrentMouseButtons == MouseButtons.Left)
+                ChColor((Label)sender);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -487,6 +536,9 @@ namespace PixselToBitMap
                 int First = hexindex[fns[2].Replace("0x", "")];
                 int Last = hexindex[fns[3].Replace("0x", "")];
                 int Offset = Convert.ToInt32(fns[4]);
+            FirstSymbol.Value = First;
+            LastSymbol.Value = Last;
+            Program.fontBitMap = new FontBitMap(First, Last);
             numericUpDown2.Value = Offset;
             textBox2.Text = fns[0].Replace("(uint8_t*)", "").Replace("Bitmaps", "");
                 string[] stringSeparators = new string[] { "},{" };
@@ -549,5 +601,19 @@ namespace PixselToBitMap
         {
             Program.fontBitMap.Offset = (int)OffsetX.Value;
         }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            CurrentMouseLabel = null;
+            MouseOverLabels = false;
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            CurrentMouseLabel = null;
+            MouseOverLabels = false;
+        }
     }
+
+
 }

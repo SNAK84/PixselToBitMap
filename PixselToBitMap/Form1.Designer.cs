@@ -48,6 +48,11 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.OffsetX = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.LastSymbol = new System.Windows.Forms.NumericUpDown();
@@ -60,26 +65,21 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.Offset = new System.Windows.Forms.NumericUpDown();
-            this.button7 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.OffsetX = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.OffsetX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LastSymbol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FirstSymbol)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Offset)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OffsetX)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -172,6 +172,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(519, 418);
             this.panel1.TabIndex = 3;
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseWheel);
             // 
             // textBox1
@@ -326,6 +327,63 @@
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Настройка BitMap";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(405, 16);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(108, 23);
+            this.button8.TabIndex = 15;
+            this.button8.Text = "Сохранить BitMap";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(405, 45);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(108, 23);
+            this.button10.TabIndex = 16;
+            this.button10.Text = "Загрузить BitMap";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(72, 45);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(101, 23);
+            this.button11.TabIndex = 17;
+            this.button11.Text = "Дублировать";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // OffsetX
+            // 
+            this.OffsetX.Location = new System.Drawing.Point(359, 45);
+            this.OffsetX.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.OffsetX.Name = "OffsetX";
+            this.OffsetX.Size = new System.Drawing.Size(40, 20);
+            this.OffsetX.TabIndex = 20;
+            this.OffsetX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.OffsetX.ValueChanged += new System.EventHandler(this.OffsetX_ValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(297, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(56, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Интервал";
             // 
             // numericUpDown2
             // 
@@ -485,6 +543,15 @@
             0});
             this.Offset.ValueChanged += new System.EventHandler(this.Offset_ValueChanged);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 13);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Отступ снизу";
+            // 
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -496,15 +563,6 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 13);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Отступ снизу";
-            // 
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -515,63 +573,6 @@
             this.button6.Text = "В BitMap";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(405, 16);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(108, 23);
-            this.button8.TabIndex = 15;
-            this.button8.Text = "Сохранить BitMap";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(405, 45);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(108, 23);
-            this.button10.TabIndex = 16;
-            this.button10.Text = "Загрузить BitMap";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(72, 45);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(101, 23);
-            this.button11.TabIndex = 17;
-            this.button11.Text = "Дублировать";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // OffsetX
-            // 
-            this.OffsetX.Location = new System.Drawing.Point(359, 45);
-            this.OffsetX.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.OffsetX.Name = "OffsetX";
-            this.OffsetX.Size = new System.Drawing.Size(40, 20);
-            this.OffsetX.TabIndex = 20;
-            this.OffsetX.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.OffsetX.ValueChanged += new System.EventHandler(this.OffsetX_ValueChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(297, 48);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(56, 13);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Интервал";
             // 
             // Form1
             // 
@@ -593,6 +594,7 @@
             this.ShowIcon = false;
             this.Text = "PixselToBitMap";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).EndInit();
@@ -602,13 +604,13 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.OffsetX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LastSymbol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FirstSymbol)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Offset)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OffsetX)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -622,8 +624,6 @@
         private System.Windows.Forms.NumericUpDown WidthBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label3;
@@ -656,6 +656,8 @@
         private System.Windows.Forms.Button button11;
         public System.Windows.Forms.NumericUpDown OffsetX;
         private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
 

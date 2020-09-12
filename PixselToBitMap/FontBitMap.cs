@@ -41,6 +41,7 @@ namespace PixselToBitMap
 
         public FontBitMap(int First, int Last)
         {
+            Symbols.Clear();
             FirstSymbol = First;
             LastSymbol = Last;
         }
