@@ -623,6 +623,197 @@ namespace PixselToBitMap
         {
             Program.fontBitMap.FirstSymbol = (int)FirstSymbol.Value;
         }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+            int Moving = 0;
+            bool FullNullX = true;
+            for (int y = 0; y < Height; y++)
+            {
+                if (!FullNullX) continue;
+                for (int x = 0; x < Width; x++)
+                {
+                    if (GetBit(x, y))
+                    {
+                        FullNullX = false;
+                    }
+                }
+                if (FullNullX)
+                {
+                    Moving++;
+                }
+            }
+            if (Moving > 0)
+            {
+                for (int i = 0; i < Moving; i++)
+                    MoveUp();
+                HeightBox.Value -= Moving;
+                Width = (int)WidthBox.Value;
+                Height = (int)HeightBox.Value;
+                CreateBitMap();
+            }
+
+            for (int y = 0; y < Height; y++)
+            {
+                FullNullX = true;
+                for (int x = 0; x < Width; x++)
+                {
+                    if (GetBit(x, y))
+                    {
+                        FullNullX = false;
+                    }
+                }
+                if (FullNullX)
+                {
+                    HeightBox.Value--;
+                }
+            }
+            if((int)HeightBox.Value != Height)
+            {
+                Width = (int)WidthBox.Value;
+                Height = (int)HeightBox.Value;
+                CreateBitMap();
+            }
+
+
+
+
+
+            Moving = 0;
+            bool FullNullY = true;
+            for (int x = 0; x < Width; x++)
+            {
+                if (!FullNullY) continue;
+                for (int y = 0; y < Height; y++)
+                {
+                    if (GetBit(x, y))
+                    {
+                        FullNullY = false;
+                    }
+                }
+                if (FullNullY)
+                {
+                    Moving++;
+                }
+            }
+
+            if (Moving > 0)
+            {
+                for (int i = 0; i < Moving; i++)
+                    MoveLeft();
+                WidthBox.Value -= Moving;
+                Width = (int)WidthBox.Value;
+                Height = (int)HeightBox.Value;
+                CreateBitMap();
+            }
+
+            for (int x = 0; x < Width; x++)
+            {
+             FullNullY = true;
+                for (int y = 0; y < Height; y++)
+                {
+                    if (GetBit(x, y))
+                    {
+                        FullNullY = false;
+                    }
+                }
+                if (FullNullY)
+                {
+                    WidthBox.Value--;
+                }
+            }
+            if ((int)WidthBox.Value != Width)
+            {
+                Width = (int)WidthBox.Value;
+                Height = (int)HeightBox.Value;
+                CreateBitMap();
+            }
+
+            if (checkBox3.Checked)
+                InsertToBitMap();
+        }
+        private void MoveUp()
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    if (y == Height - 1)
+                        labels[x, y].BackColor = Color.White;
+                    else
+                        labels[x, y].BackColor = labels[x, y+1].BackColor;
+                }
+            }
+        }
+        private void MoveDown()
+        {
+            for (int y = Height-1; y >=0; y--)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    if (y == 0)
+                        labels[x, y].BackColor = Color.White;
+                    else
+                        labels[x, y].BackColor = labels[x, y - 1].BackColor;
+                }
+            }
+        }
+        private void MoveLeft()
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    if (x == Width-1)
+                        labels[x, y].BackColor = Color.White;
+                    else
+                        labels[x, y].BackColor = labels[x+1, y].BackColor;
+                }
+            }
+           
+
+            if (checkBox3.Checked)
+                InsertToBitMap();
+        }
+
+        private void MoveRight()
+        {
+            for (int x = (Width-1); x >=0; x--)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    if (x == 0)
+                        labels[x, y].BackColor = Color.White;
+                    else
+                        labels[x, y].BackColor = labels[x - 1, y].BackColor;
+                }
+            }
+
+
+            if (checkBox3.Checked)
+                InsertToBitMap();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            MoveLeft();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            MoveUp();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            MoveRight();
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            MoveDown();
+        }
     }
 
 
