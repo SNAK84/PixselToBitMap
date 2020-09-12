@@ -29,7 +29,6 @@ namespace PixselToBitMap
     [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
     public class TestMessageFilter : IMessageFilter
     {
-        int i = 0;
         public bool PreFilterMessage(ref Message m)
         {
             if (m.Msg == 513)

@@ -232,7 +232,7 @@ namespace PixselToBitMap
                 LineAlignment = StringAlignment.Center
             };
 
-            g.DrawString(FontChars[Symbol].ToString(), new Font(SelFont.Text, Height - 1), Brushes.Black, rectf, format);
+            g.DrawString(FontChars[Symbol].ToString(), new Font(SelFont.Text, Height), Brushes.Black, rectf, format);
 
             g.Flush();
 
@@ -612,6 +612,16 @@ namespace PixselToBitMap
         {
             CurrentMouseLabel = null;
             MouseOverLabels = false;
+        }
+
+        private void LastSymbol_ValueChanged(object sender, EventArgs e)
+        {
+            Program.fontBitMap.LastSymbol = (int)LastSymbol.Value;
+        }
+
+        private void FirstSymbol_ValueChanged(object sender, EventArgs e)
+        {
+            Program.fontBitMap.FirstSymbol = (int)FirstSymbol.Value;
         }
     }
 

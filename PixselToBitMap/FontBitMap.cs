@@ -8,8 +8,8 @@ namespace PixselToBitMap
 {
     class FontBitMap
     {
-        int FirstSymbol;
-        int LastSymbol;
+        public int FirstSymbol;
+        public int LastSymbol;
         public string FontName;
         public int Advance = 9;
         public int Offset = 1;

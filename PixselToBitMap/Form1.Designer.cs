@@ -433,6 +433,7 @@
             0,
             0,
             0});
+            this.LastSymbol.ValueChanged += new System.EventHandler(this.LastSymbol_ValueChanged);
             // 
             // label7
             // 
@@ -464,6 +465,7 @@
             0,
             0,
             0});
+            this.FirstSymbol.ValueChanged += new System.EventHandler(this.FirstSymbol_ValueChanged);
             // 
             // label6
             // 
