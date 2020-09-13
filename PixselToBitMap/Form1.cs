@@ -23,6 +23,7 @@ namespace PixselToBitMap
         {
             get { return _Width; }
             set {
+                //PreviewSizeReCalc();
                 WidthBox.Value = value;
               _Width = value; }
         }
@@ -31,6 +32,7 @@ namespace PixselToBitMap
             get { return _Height; }
             set
             {
+                //PreviewSizeReCalc();
                 HeightBox.Value = value; _Height = value; }
         }
 
@@ -61,6 +63,7 @@ namespace PixselToBitMap
                 }
             }
             panel1.Visible = true;
+            PreviewPrint();
         }
         public bool MouseOverLabels;
         public void CreateMyLabel(int x, int y)
@@ -140,6 +143,8 @@ namespace PixselToBitMap
 
             if (checkBox3.Checked)
                 InsertToBitMap();
+
+            PreviewPrint();
         }
         private void labels_MouseEnter(object sender, EventArgs e)
         {
@@ -217,6 +222,8 @@ namespace PixselToBitMap
             NotInsertToBitMap = true;
             label4.Text = FontChars[(int)numericUpDown1.Value].ToString();
             GetBitmaxToLabels((int)numericUpDown1.Value);
+
+            timer1.Enabled = true;
         }
 
         private void GetBitmaxSymbol(int Symbol)
@@ -358,6 +365,7 @@ namespace PixselToBitMap
                     }
                 }
             }
+            PreviewPrint();
         }
 
         private void ClearLabels()
@@ -566,6 +574,8 @@ namespace PixselToBitMap
         {
             if (checkBox3.Checked && !NotInsertToBitMap)
                 InsertToBitMap();
+
+            PreviewPrint();
         }
 
         private void WidthBox_ValueChanged(object sender, EventArgs e)
@@ -588,6 +598,9 @@ namespace PixselToBitMap
 
         public void CopySymbel(int Sym)
         {
+            NotInsertToBitMap = true;
+            timer1.Enabled = true;
+
             Program.fontBitMap[(int)numericUpDown1.Value].BitMap = Program.fontBitMap[Sym].BitMap;
             Program.fontBitMap[(int)numericUpDown1.Value].CursorBitMap = Program.fontBitMap[Sym].CursorBitMap;
             Program.fontBitMap[(int)numericUpDown1.Value].Width = Program.fontBitMap[Sym].Width;
@@ -813,6 +826,107 @@ namespace PixselToBitMap
         private void button16_Click(object sender, EventArgs e)
         {
             MoveDown();
+        }
+
+        private void PreviewPrint()
+        {
+            if(!PreviewSizeChengeFun) PreviewSizeReCalc();
+            if (!PreviewEnable.Checked) return;
+
+            int FW = Program.fontBitMap.GetMaxWidth();
+            int FH = Program.fontBitMap.GetMaxHeight();
+
+            int PS = (int)PreviewSize.Value;
+            int SizeX = PS / ((FW > 0) ? FW : Width);
+            int SizeY = PS / ((FH > 0) ? FH : Height);
+
+            int Size = (SizeX > SizeY) ? SizeY : SizeX;
+            //int Size = (int)PreviewSize.Value;
+
+            int bytes = (int)Math.Ceiling(((decimal)Width * Height / 8));
+
+            Bitmap bitmap = new Bitmap(PS, PS);
+            Graphics g = Graphics.FromImage(bitmap);
+
+            int offset = ((int)Offset.Value - 6) * -1 * Size;
+            int x = 0;
+            int y = 0;
+            for (int b = 0; b < bytes; b++)
+            {
+                for (byte bt = 0; bt < 8; bt++)
+                {
+                    if (y >= Height) continue;
+                    int xp = x * Size;
+                    int yp = y * Size + offset;
+                    if (GetBit(x, y))
+                        g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(xp, yp, Size, Size));
+                    else
+                        g.FillRectangle(new SolidBrush(Color.White), new Rectangle(xp, yp, Size, Size));
+                    x++;
+                    if (x >= Width)
+                    {
+                        x = 0;
+                        y++;
+                    }
+                }
+            }
+
+            g.Flush();
+            Preview.BackgroundImage = bitmap;
+
+        }
+        bool PreviewSizeReCalcFun = false;
+        bool PreviewSizeChengeFun = false;
+        private void PreviewSize_ValueChanged(object sender, EventArgs e)
+        {
+            if (PreviewSizeReCalcFun) return;
+            Preview.Width = (int)PreviewSize.Value+2;
+            Preview.Height = (int)PreviewSize.Value+2;
+            PreviewSizeChengeFun = true;
+            PreviewPrint();
+            PreviewSizeChengeFun = false;
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            PreviewPrint();
+        }
+
+        private void PreviewEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            PreviewPrint();
+        }
+
+        private void PreviewSizeReCalc()
+        {
+            if (Program.fontBitMap == null) return;
+            PreviewSizeReCalcFun = true;
+
+            int FW = Program.fontBitMap.GetMaxWidth();
+            int FH = Program.fontBitMap.GetMaxHeight();
+
+            int SizeX = ((FW > 0) ? FW : Width);
+            int SizeY = ((FW > 0) ? FH : Height);
+
+            int Size = (SizeX > SizeY) ? SizeX : SizeY;
+            PreviewSize.Maximum = 0;
+            do
+            {
+                PreviewSize.Maximum += Size;
+            } while (PreviewSize.Maximum < 128);
+            PreviewSize.Maximum -= Size;
+
+            PreviewSize.Minimum = Size;
+            PreviewSize.Value = PreviewSize.Maximum;
+
+            PreviewSize.Increment = Size;
+            PreviewSizeReCalcFun = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            NotInsertToBitMap = false;
+            timer1.Enabled = false;
         }
     }
 
