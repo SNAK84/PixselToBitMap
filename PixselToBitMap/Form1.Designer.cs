@@ -37,8 +37,6 @@
             this.WidthBox = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -76,10 +74,11 @@
             this.button16 = new System.Windows.Forms.Button();
             this.Preview = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.PreviewEnable = new System.Windows.Forms.CheckBox();
-            this.PreviewSize = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
+            this.PreviewSize = new System.Windows.Forms.NumericUpDown();
+            this.PreviewEnable = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
@@ -188,27 +187,6 @@
             this.panel1.TabIndex = 3;
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseWheel);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(537, 396);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(310, 203);
-            this.textBox1.TabIndex = 4;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(746, 367);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Вывести Массив";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -510,6 +488,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button2);
             this.groupBox4.Controls.Add(this.checkBox3);
             this.groupBox4.Controls.Add(this.checkBox2);
             this.groupBox4.Controls.Add(this.Offset);
@@ -570,7 +549,6 @@
             // 
             // button7
             // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button7.Location = new System.Drawing.Point(455, 152);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(70, 23);
@@ -581,7 +559,6 @@
             // 
             // button6
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button6.Location = new System.Drawing.Point(371, 152);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(70, 23);
@@ -660,28 +637,26 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.PreviewSize);
             this.groupBox5.Controls.Add(this.PreviewEnable);
             this.groupBox5.Controls.Add(this.Preview);
-            this.groupBox5.Location = new System.Drawing.Point(537, 181);
+            this.groupBox5.Location = new System.Drawing.Point(537, 449);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(310, 150);
             this.groupBox5.TabIndex = 21;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "groupBox5";
             // 
-            // PreviewEnable
+            // label11
             // 
-            this.PreviewEnable.AutoSize = true;
-            this.PreviewEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PreviewEnable.Location = new System.Drawing.Point(203, 19);
-            this.PreviewEnable.Name = "PreviewEnable";
-            this.PreviewEnable.Size = new System.Drawing.Size(101, 17);
-            this.PreviewEnable.TabIndex = 21;
-            this.PreviewEnable.Text = "Предпросмотр";
-            this.PreviewEnable.UseVisualStyleBackColor = true;
-            this.PreviewEnable.CheckedChanged += new System.EventHandler(this.PreviewEnable_CheckedChanged);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(203, 44);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 13);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "Размер:";
             // 
             // PreviewSize
             // 
@@ -711,19 +686,32 @@
             0});
             this.PreviewSize.ValueChanged += new System.EventHandler(this.PreviewSize_ValueChanged);
             // 
-            // label11
+            // PreviewEnable
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(203, 44);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(49, 13);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Размер:";
+            this.PreviewEnable.AutoSize = true;
+            this.PreviewEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PreviewEnable.Location = new System.Drawing.Point(203, 19);
+            this.PreviewEnable.Name = "PreviewEnable";
+            this.PreviewEnable.Size = new System.Drawing.Size(101, 17);
+            this.PreviewEnable.TabIndex = 21;
+            this.PreviewEnable.Text = "Предпросмотр";
+            this.PreviewEnable.UseVisualStyleBackColor = true;
+            this.PreviewEnable.CheckedChanged += new System.EventHandler(this.PreviewEnable_CheckedChanged);
             // 
             // timer1
             // 
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(178, 11);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(117, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Изменить для Всех";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
@@ -741,9 +729,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(875, 250);
@@ -772,7 +758,6 @@
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewSize)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -784,7 +769,6 @@
         private System.Windows.Forms.NumericUpDown WidthBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
@@ -817,7 +801,6 @@
         public System.Windows.Forms.NumericUpDown OffsetX;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
@@ -829,6 +812,7 @@
         public System.Windows.Forms.NumericUpDown PreviewSize;
         private System.Windows.Forms.CheckBox PreviewEnable;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

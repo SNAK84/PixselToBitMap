@@ -166,41 +166,22 @@ namespace PixselToBitMap
         {
 
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-            int bytes = (int)Math.Ceiling(((decimal)Width * Height / 8));
-
-            byte[] BitMap = new byte[bytes];
-            
-            int x = 0;
-            int y = 0;
-            for (int b = 0; b < bytes; b++)
-            {
-                for (byte bt = 0; bt < 8; bt++)
-                {
-                    if (y >= Height) continue;
-                    if (GetBit(x, y))
-                        BitMap[b] |= (byte)(0x80 >> bt);
-                    x++;
-                    if (x >= Width)
-                    {
-                        x = 0;
-                        y++;
-                    }
-                }
-            }
-
-            string FileStringByte = "0x" + BitConverter.ToString(BitMap).Replace("-", ", 0x");
-            textBox1.Text = FileStringByte;
-
-        }
+        
         private bool GetBit(int x, int y)
         {
             int z = x;
             int a = y;
-            return labels[x, y].BackColor == Color.Black;
+
+            try
+            {
+                return labels[x, y].BackColor == Color.Black;
+            }
+            catch
+            {
+
+            }
+
+            return false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -848,7 +829,7 @@ namespace PixselToBitMap
             Bitmap bitmap = new Bitmap(PS, PS);
             Graphics g = Graphics.FromImage(bitmap);
 
-            int offset = ((int)Offset.Value - 6) * -1 * Size;
+            int offset = ((int)Offset.Value - (int)numericUpDown2.Value) * -1 * Size;
             int x = 0;
             int y = 0;
             for (int b = 0; b < bytes; b++)
@@ -927,6 +908,12 @@ namespace PixselToBitMap
         {
             NotInsertToBitMap = false;
             timer1.Enabled = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form EditDialog = new Form2();
+            EditDialog.ShowDialog();
         }
     }
 
